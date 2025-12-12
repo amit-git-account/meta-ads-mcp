@@ -1,3 +1,4 @@
+cat > src/meta_ads_mcp/server.py << 'EOF'
 import logging
 from typing import Any, Dict, List, Optional
 
@@ -5,6 +6,7 @@ from fastmcp import FastMCP
 
 from .tools.accounts import list_ad_accounts
 from .tools.campaigns import list_campaigns
+from .tools.health import healthcheck
 from .tools.insights import get_insights
 from .utils.safe_tool import safe_tool
 
@@ -12,6 +14,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("meta-ads-mcp")
 
 mcp = FastMCP("Meta Ads MCP")
+
+
+@mcp.tool
+@safe_tool
+def meta_ads_healthcheck(sample_accounts: int = 3) -> Dict[str, Any]:
+    return healthcheck(sample_accounts=sample_accounts)
 
 
 @mcp.tool
@@ -37,9 +45,17 @@ def meta_ads_get_insights(
     level: str = "campaign",
     date_preset: str = "last_7d",
     breakdowns: Optional[List[str]] = None,
+    fields: Optional[List[str]] = None,
+    limit: int = 100,
 ) -> Dict[str, Any]:
-    # still mock for now
-    return get_insights(entity_id=entity_id, level=level, date_preset=date_preset, breakdowns=breakdowns)
+    return get_insights(
+        entity_id=entity_id,
+        level=level,
+        date_preset=date_preset,
+        breakdowns=breakdowns,
+        fields=fields,
+        limit=limit,
+    )
 
 
 def main() -> None:
@@ -49,3 +65,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+EOF
