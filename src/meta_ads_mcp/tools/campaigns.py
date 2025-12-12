@@ -2,6 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from meta_ads_mcp.adapters.meta.client import MetaGraphClient
 from meta_ads_mcp.config.settings import load_settings
+from meta_ads_mcp.utils.errors import ConfigError
 from meta_ads_mcp.utils.paging import normalize_paged_response
 
 def list_campaigns(
@@ -9,22 +10,21 @@ def list_campaigns(
     limit: int = 25,
     status_filter: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """
-    Real call: GET /act_{ad_account_id}/campaigns
-    Accepts ad_account_id as either "act_123" or "123".
-    """
     settings = load_settings(require_token=True)
     client = MetaGraphClient(settings=settings)
 
     act_id = ad_account_id if ad_account_id.startswith("act_") else f"act_{ad_account_id}"
 
+    if settings.ad_account_allowlist and act_id not in settings.ad_account_allowlist:
+        raise ConfigError(
+            f"Ad account {act_id} is not in AD_ACCOUNT_ALLOWLIST. "
+            f"Allowed: {settings.ad_account_allowlist}"
+        )
+
     params: Dict[str, Any] = {
         "fields": "id,name,status,objective,buying_type,daily_budget,lifetime_budget",
         "limit": max(1, min(limit, 100)),
     }
-    if status_filter:
-        # Meta expects filtering JSON sometimes; keep v0 simple with server-side filter after fetch.
-        pass
 
     data = client.get(f"{act_id}/campaigns", params=params)
     norm = normalize_paged_response(data)
@@ -35,7 +35,4 @@ def list_campaigns(
         norm["data"] = campaigns
         norm["count"] = len(campaigns)
 
-    return {
-        "ad_account_id": act_id,
-        **norm,
-    }
+    return {"ad_account_id": act_id, **norm}
