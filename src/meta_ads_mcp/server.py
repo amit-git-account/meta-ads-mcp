@@ -61,7 +61,7 @@ def meta_ads_get_insights(
 
 def main() -> None:
     logger.info("Starting Meta Ads MCP (stdio)")
-    mcp.run(transport="stdio")
+mcp.run(transport="stdio", show_banner=False)
 
 
 if __name__ == "__main__":
