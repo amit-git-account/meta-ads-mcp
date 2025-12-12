@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "meta-ads-mcp": {
+      "command": "meta-ads-mcp",
+      "env": {
+        "META_ACCESS_TOKEN": "REPLACE_ME",
+        "AD_ACCOUNT_ALLOWLIST": "act_1234567890",
+        "META_GRAPH_VERSION": "v21.0"
+      }
+    }
+  }
+}
