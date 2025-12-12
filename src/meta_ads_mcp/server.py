@@ -3,8 +3,9 @@ from typing import Any, Dict, List, Optional
 
 from fastmcp import FastMCP
 
-# IMPORTANT: For stdio MCP servers, don't write to stdout (no print()).
-# Use logging to stderr instead.
+from .tools.campaigns import list_campaigns
+from .tools.insights import get_insights
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("meta-ads-mcp")
 
@@ -17,32 +18,17 @@ def meta_ads_list_campaigns(
     limit: int = 25,
     status_filter: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """
-    List campaigns for an ad account (MOCK for now).
+    return list_campaigns(ad_account_id=ad_account_id, limit=limit, status_filter=status_filter)
 
-    Args:
-      ad_account_id: e.g. "act_123"
-      limit: max number of campaigns to return
-      status_filter: e.g. "ACTIVE", "PAUSED"
-    """
-    # Mock data so we can test MCP end-to-end before adding Meta auth + API calls.
-    campaigns: List[Dict[str, Any]] = [
-        {"id": "cmp_001", "name": "Prospecting - Broad", "status": "ACTIVE"},
-        {"id": "cmp_002", "name": "Retargeting - 7d", "status": "PAUSED"},
-        {"id": "cmp_003", "name": "Brand - Always On", "status": "ACTIVE"},
-    ]
 
-    if status_filter:
-        campaigns = [c for c in campaigns if c["status"] == status_filter]
-
-    campaigns = campaigns[: max(1, min(limit, 100))]
-
-    return {
-        "ad_account_id": ad_account_id,
-        "count": len(campaigns),
-        "campaigns": campaigns,
-        "note": "MOCK ONLY (no Meta API calls yet)",
-    }
+@mcp.tool
+def meta_ads_get_insights(
+    entity_id: str,
+    level: str = "campaign",
+    date_preset: str = "last_7d",
+    breakdowns: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    return get_insights(entity_id=entity_id, level=level, date_preset=date_preset, breakdowns=breakdowns)
 
 
 def main() -> None:
