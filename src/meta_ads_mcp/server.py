@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 
 from fastmcp import FastMCP
 
+from .tools.accounts import list_ad_accounts
 from .tools.campaigns import list_campaigns
 from .tools.insights import get_insights
 
@@ -10,6 +11,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("meta-ads-mcp")
 
 mcp = FastMCP("Meta Ads MCP")
+
+
+@mcp.tool
+def meta_ads_list_ad_accounts(limit: int = 25) -> Dict[str, Any]:
+    return list_ad_accounts(limit=limit)
 
 
 @mcp.tool

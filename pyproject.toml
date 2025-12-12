@@ -8,7 +8,7 @@ version = "0.0.1"
 description = "MCP server for Meta Ads insights (read-only by default)."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["fastmcp>=2.0"]
+dependencies = ["fastmcp>=2.0", "requests>=2.31.0"]
 
 [project.scripts]
 meta-ads-mcp = "meta_ads_mcp.server:main"
