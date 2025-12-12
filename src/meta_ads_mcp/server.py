@@ -1,14 +1,13 @@
-cat > src/meta_ads_mcp/server.py << 'EOF'
 import logging
 from typing import Any, Dict, List, Optional
 
 from fastmcp import FastMCP
 
-from .tools.accounts import list_ad_accounts
-from .tools.campaigns import list_campaigns
-from .tools.health import healthcheck
-from .tools.insights import get_insights
-from .utils.safe_tool import safe_tool
+from meta_ads_mcp.tools.accounts import list_ad_accounts
+from meta_ads_mcp.tools.campaigns import list_campaigns
+from meta_ads_mcp.tools.health import healthcheck
+from meta_ads_mcp.tools.insights import get_insights
+from meta_ads_mcp.utils.safe_tool import safe_tool
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("meta-ads-mcp")
@@ -35,7 +34,11 @@ def meta_ads_list_campaigns(
     limit: int = 25,
     status_filter: Optional[str] = None,
 ) -> Dict[str, Any]:
-    return list_campaigns(ad_account_id=ad_account_id, limit=limit, status_filter=status_filter)
+    return list_campaigns(
+        ad_account_id=ad_account_id,
+        limit=limit,
+        status_filter=status_filter,
+    )
 
 
 @mcp.tool
@@ -65,4 +68,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-EOF
