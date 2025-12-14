@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "meta-ads-mcp": {
+      "command": "/Users/amittomar-air/Desktop/projects/meta-ads-mcp/scripts/run_meta_ads_mcp.sh"
+    }
+  }
+}
