@@ -1,4 +1,4 @@
-# Adslens MCP
+# Meta Ads MCP
 
 An MCP server that gives LLMs safe, structured access to Meta Ads insights (read-only by default).
 
