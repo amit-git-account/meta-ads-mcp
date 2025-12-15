@@ -1,3 +1,4 @@
+import argparse
 import logging
 from typing import Any, Dict, List, Optional
 
@@ -9,6 +10,7 @@ from meta_ads_mcp.tools.health import healthcheck
 from meta_ads_mcp.tools.insights import get_insights
 from meta_ads_mcp.utils.safe_tool import safe_execute
 
+logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("meta-ads-mcp")
 
@@ -61,7 +63,7 @@ def meta_ads_get_insights(
 
 def main() -> None:
     logger.info("Starting Meta Ads MCP (stdio)")
-mcp.run(transport="stdio", show_banner=False)
+    mcp.run(transport="stdio", show_banner=False)
 
 
 if __name__ == "__main__":
