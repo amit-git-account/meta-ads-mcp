@@ -108,6 +108,7 @@ Starting MCP server 'Meta Ads MCP'
 
 
 ## Updating LLM Config file
+```
 {
   "mcpServers": {
     "meta-ads-mcp": {
@@ -118,7 +119,7 @@ Starting MCP server 'Meta Ads MCP'
     }
   }
 }
-
+```
 ---
 
 ## Available tools
