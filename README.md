@@ -173,6 +173,14 @@ The LLM will:
 2. Call `get_insights`
 3. Return grounded, verifiable results
 
+Sample Screenshots
+
+List All Meta Accounts  
+<img width="755" height="734" alt="Meta - List accounts" src="https://github.com/user-attachments/assets/2a0a6ab1-ac5b-4193-ac9e-8e7feb964a49" />
+
+List all MCP Capabilities  
+<img width="752" height="831" alt="Meta - List capabilities" src="https://github.com/user-attachments/assets/870e5e78-52c2-4138-a958-e608ff9d3ab9" />
+
 ---
 
 ## Why MCP (and not RAG or fine-tuning)?
